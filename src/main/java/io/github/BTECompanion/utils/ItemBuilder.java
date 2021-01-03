@@ -19,7 +19,7 @@ public class ItemBuilder {
     }
 
     public ItemBuilder(Material material, int amount, byte color) {
-        item = new ItemStack(material, amount, (byte) color);
+        item = new ItemStack(material, amount, color);
         itemMeta = item.getItemMeta();
     }
 

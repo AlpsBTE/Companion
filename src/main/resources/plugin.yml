@@ -1,7 +1,7 @@
 main: github.BTECompanion.BTECompanion
 version: 1.0
 api-version: 1.12.2
-name: BTE-Companion
+name: AlpsBTE-Companion
 author: R3tuxn
 
 commands:

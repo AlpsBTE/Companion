@@ -11,8 +11,8 @@ public class CMD_ReloadConfig implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String s, String[] args) {
         if(sender instanceof Player) {
             if(sender.hasPermission("companion.creload")) {
-                BTECompanion.getPlugin().saveConfig();
                 BTECompanion.getPlugin().reloadConfig();
+                BTECompanion.getPlugin().saveConfig();
 
                 sender.sendMessage("§8§l>> §aSuccessfully reloaded config.");
             }

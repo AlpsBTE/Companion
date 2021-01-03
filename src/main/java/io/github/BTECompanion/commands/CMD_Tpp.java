@@ -15,9 +15,8 @@ public class CMD_Tpp implements CommandExecutor {
                     Player targetPlayer = player.getServer().getPlayer(args[0]);
                     player.teleport(targetPlayer);
                     player.sendMessage("§8§l>> §aTeleporting to player");
-                } catch (Exception ex) {
+                } catch (Exception ignore) {
                     player.sendMessage("§8§l>> §cUsage: /tpp <Player>");
-                    ex.printStackTrace();
                 }
             }
         }
