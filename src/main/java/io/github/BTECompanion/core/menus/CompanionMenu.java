@@ -1,7 +1,6 @@
 package github.BTECompanion.core.menus;
 
 import github.BTECompanion.BTECompanion;
-import github.BTECompanion.core.menus.SpecialBlocksMenu;
 import github.BTECompanion.utils.ItemBuilder;
 import github.BTECompanion.utils.LoreBuilder;
 import org.bukkit.Location;

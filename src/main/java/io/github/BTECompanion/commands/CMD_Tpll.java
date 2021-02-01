@@ -14,7 +14,7 @@ public class CMD_Tpll implements CommandExecutor {
                     Player player = (Player)sender;
                     player.performCommand("cs tpll " + String.join(" ", args));
                 } else {
-                    sender.sendMessage("§8§l>> §cUsage: /tpll <long> <lat>");
+                    sender.sendMessage("§8§l>> §cUsage: /tpll <lon> <lat>");
                 }
             }
         }

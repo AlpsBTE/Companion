@@ -26,3 +26,8 @@ Companion:
     z: 0
     yaw: 0
     pitch: 0
+PlotSystem:
+  database:
+    username: null
+    password: null
+  path: null

@@ -18,6 +18,11 @@ public class ItemBuilder {
         itemMeta = item.getItemMeta();
     }
 
+    public ItemBuilder(ItemStack item) {
+        this.item = item;
+        itemMeta = this.item.getItemMeta();
+    }
+
     public ItemBuilder(Material material, int amount, byte color) {
         item = new ItemStack(material, amount, color);
         itemMeta = item.getItemMeta();

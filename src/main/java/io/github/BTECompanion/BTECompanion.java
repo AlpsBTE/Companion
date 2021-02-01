@@ -2,8 +2,11 @@ package github.BTECompanion;
 
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
+import com.sk89q.worldedit.WorldEdit;
+import com.sk89q.worldedit.bukkit.BukkitPlayer;
 import github.BTECompanion.commands.*;
 import github.BTECompanion.core.EventListener;
+import github.BTECompanion.core.plotsystem.DatabaseConnection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -26,15 +29,21 @@ public class BTECompanion extends JavaPlugin {
 
         reloadConfig();
 
+        // Connect to Database
+        DatabaseConnection.ConnectToDatabase();
+
+        // Add listeners
         this.getServer().getPluginManager().registerEvents(new EventListener(), plugin);
         this.getServer().getPluginManager().registerEvents(new MenuFunctionListener(), plugin);
 
+        // Add commands
         this.getCommand("setspawnpoint").setExecutor(new CMD_SetSpawnPoint());
         this.getCommand("creload").setExecutor(new CMD_ReloadConfig());
         this.getCommand("map").setExecutor(new CMD_Map());
         this.getCommand("speed").setExecutor(new CMD_Speed());
         this.getCommand("hub").setExecutor(new CMD_Hub());
         this.getCommand("companion").setExecutor(new CMD_Companion());
+        this.getCommand("createplot").setExecutor(new CMD_CreatePlot());
 
         if(getConfig().getBoolean("Companion.enable-custom-tpll")) {
             this.getCommand("tpll").setExecutor(new CMD_Tpll());

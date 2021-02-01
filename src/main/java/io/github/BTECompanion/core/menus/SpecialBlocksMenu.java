@@ -156,8 +156,6 @@ public class SpecialBlocksMenu extends SpecialBlocks {
             }
         }
 
-
-
         return specialBlocksMenu;
     }
 
