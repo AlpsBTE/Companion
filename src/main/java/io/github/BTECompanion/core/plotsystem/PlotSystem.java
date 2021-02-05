@@ -22,6 +22,7 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.w3c.dom.css.CSSCharsetRule;
 
 import javax.sound.sampled.Clip;
 import java.io.File;
@@ -90,6 +91,13 @@ public class PlotSystem {
             path = path.concat(cityID + "/" + plotID + ".schematic");
 
             File schematic = new File(path);
+
+            if(!schematic.getParentFile().exists()) {
+                schematic.getParentFile().mkdirs();
+            }
+
+            schematic.createNewFile();
+
             WorldEditPlugin worldEdit = (WorldEditPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldEdit");
 
             Clipboard cb = new BlockArrayClipboard(polyRegion);
@@ -97,7 +105,7 @@ public class PlotSystem {
             ForwardExtentCopy copy = new ForwardExtentCopy(playerSession.createEditSession(worldEdit.wrapPlayer(player)), polyRegion, cb, polyRegion.getMinimumPoint());
             Operations.completeLegacy(copy);
 
-            try(ClipboardWriter writer = ClipboardFormat.SCHEMATIC.getWriter(new FileOutputStream(schematic))) {
+            try(ClipboardWriter writer = ClipboardFormat.SCHEMATIC.getWriter(new FileOutputStream(schematic, false))) {
                 writer.write(cb, polyRegion.getWorld().getWorldData());
             }
 
