@@ -5,13 +5,9 @@ import github.BTECompanion.core.plotsystem.DatabaseConnection;
 import github.BTECompanion.core.plotsystem.PlotSystem;
 import github.BTECompanion.utils.ItemBuilder;
 import github.BTECompanion.utils.LoreBuilder;
-import me.arcaniax.hdb.api.HeadDatabaseAPI;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.ipvp.canvas.Menu;
 import org.ipvp.canvas.mask.BinaryMask;
@@ -120,8 +116,9 @@ public class PlotSystemMenu extends PlotSystem {
         return new ItemBuilder((selectedCityID == -1) ? new ItemStack(Material.NAME_TAG) : cityProjects.get(selectedCityID).getItem())
                 .setName("§6§lSTATS")
                 .setLore(new LoreBuilder()
-                        .description("§bX: §7" + getMcCoordinates().getX(),
-                                     "§bZ: §7" + getMcCoordinates().getZ(),
+                        .description("§bX: §7" + (int) getMcCoordinates().getX(),
+                                     "§bY: §7" + (int) getMcCoordinates().getY(),
+                                     "§bZ: §7" + (int) getMcCoordinates().getZ(),
                                      "§bCity: §7" + ((selectedCityID != -1) ? cityProjects.get(selectedCityID).getName() : "none"))
                         .build())
                 .build();
