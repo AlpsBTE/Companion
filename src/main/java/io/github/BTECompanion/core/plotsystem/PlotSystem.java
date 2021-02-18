@@ -68,10 +68,13 @@ public class PlotSystem {
                 // Cast WorldEdit region to polygonal region
                 polyRegion = (Polygonal2DRegion)plotRegion;
 
-                if(polyRegion.getLength() > 100 || polyRegion.getWidth() > 100 || polyRegion.getHeight() > 20) {
+                if(polyRegion.getLength() > 100 || polyRegion.getWidth() > 100 || polyRegion.getHeight() > 30) {
                      player.sendMessage("§8§l>> §cPlease adjust your selection size!");
                      return;
                 }
+
+                // Set minimum selection height under player location
+                polyRegion.setMinimumY((int) player.getLocation().getY() - 5);
             } else {
                  player.sendMessage("§8§l>> §cPlease use poly selection to create a new plot!");
                  return;
@@ -84,23 +87,25 @@ public class PlotSystem {
 
         // Saving schematic
         try {
-            ResultSet rs = DatabaseConnection.createStatement().executeQuery("SELECT COUNT(idplot) FROM plots");
+            ResultSet rs = DatabaseConnection.createStatement().executeQuery("SELECT (t1.idplot + 1) as firstID FROM plots t1 " +
+                    "WHERE NOT EXISTS (SELECT t2.idplot FROM plots t2 WHERE t2.idplot = t1.idplot + 1)");
             if(rs.next()) {
-                plotID += rs.getInt(1);
+                plotID = rs.getInt(1);
             }
-            path = path.concat(cityID + "/" + plotID + ".schematic");
 
+            path = Paths.get(path, String.valueOf(cityID), plotID + ".schematic").toString();
             File schematic = new File(path);
 
-            if(!schematic.getParentFile().exists()) {
-                schematic.getParentFile().mkdirs();
-            }
+            boolean createdDirectory = schematic.getParentFile().mkdirs();
+            Bukkit.getLogger().log(Level.INFO, "Created new Directory (" + schematic.getParentFile().getName() + "): " + createdDirectory);
 
-            schematic.createNewFile();
+            boolean createdFile = schematic.createNewFile();
+            Bukkit.getLogger().log(Level.INFO, "Created new File (" + schematic.getName() + "): " + createdFile);
 
             WorldEditPlugin worldEdit = (WorldEditPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldEdit");
 
             Clipboard cb = new BlockArrayClipboard(polyRegion);
+            cb.setOrigin(cb.getRegion().getCenter());
             LocalSession playerSession = WorldEdit.getInstance().getSessionManager().findByName(player.getDisplayName());
             ForwardExtentCopy copy = new ForwardExtentCopy(playerSession.createEditSession(worldEdit.wrapPlayer(player)), polyRegion, cb, polyRegion.getMinimumPoint());
             Operations.completeLegacy(copy);
@@ -108,13 +113,10 @@ public class PlotSystem {
             try(ClipboardWriter writer = ClipboardFormat.SCHEMATIC.getWriter(new FileOutputStream(schematic, false))) {
                 writer.write(cb, polyRegion.getWorld().getWorldData());
             }
-
-            // Fast Async WorldEdit -> Can't use this code because the plugin is not on the server
-            //Schematic schematic = new Schematic(plotRegion);
-            //schematic.save(new File(path), ClipboardFormat.SCHEMATIC);
         } catch (Exception ex) {
             Bukkit.getLogger().log(Level.SEVERE, "An error occurred while saving new plot to a schematic!", ex);
             player.sendMessage("§8§l>> §cAn error occurred while creating plot!");
+            return;
         }
 
         // Save to database
@@ -123,7 +125,7 @@ public class PlotSystem {
 
             statement.setInt(1, plotID);
             statement.setInt(2, cityID);
-            statement.setString(3, mcCoordinates.getX() + "," + mcCoordinates.getZ());
+            statement.setString(3, mcCoordinates.getX() + "," + mcCoordinates.getY() + "," + mcCoordinates.getZ());
 
             statement.execute();
         } catch (Exception ex) {
@@ -138,7 +140,5 @@ public class PlotSystem {
         }
     }
 
-    public Location getMcCoordinates() {
-        return mcCoordinates;
-    }
+    public Location getMcCoordinates() { return mcCoordinates; }
 }
