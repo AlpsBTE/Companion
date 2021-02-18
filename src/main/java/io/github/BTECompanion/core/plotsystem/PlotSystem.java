@@ -1,30 +1,21 @@
 package github.BTECompanion.core.plotsystem;
 
 import com.sk89q.worldedit.*;
-import com.sk89q.worldedit.bukkit.BukkitPlayer;
-import com.sk89q.worldedit.bukkit.BukkitUtil;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import com.sk89q.worldedit.extent.clipboard.BlockArrayClipboard;
 import com.sk89q.worldedit.extent.clipboard.Clipboard;
 import com.sk89q.worldedit.extent.clipboard.io.ClipboardFormat;
 import com.sk89q.worldedit.extent.clipboard.io.ClipboardWriter;
 import com.sk89q.worldedit.function.operation.ForwardExtentCopy;
-import com.sk89q.worldedit.function.operation.Operation;
 import com.sk89q.worldedit.function.operation.Operations;
 import com.sk89q.worldedit.regions.Polygonal2DRegion;
 import com.sk89q.worldedit.regions.Region;
-import com.sk89q.worldedit.schematic.MCEditSchematicFormat;
-import com.sk89q.worldedit.schematic.SchematicFormat;
-import com.sk89q.worldedit.session.ClipboardHolder;
 import github.BTECompanion.BTECompanion;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
-import org.w3c.dom.css.CSSCharsetRule;
 
-import javax.sound.sampled.Clip;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
