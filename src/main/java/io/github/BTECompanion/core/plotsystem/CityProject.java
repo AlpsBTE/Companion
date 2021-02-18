@@ -1,6 +1,7 @@
 package github.BTECompanion.core.plotsystem;
 
 import github.BTECompanion.utils.ItemBuilder;
+import github.BTECompanion.utils.LoreBuilder;
 import me.arcaniax.hdb.api.HeadDatabaseAPI;
 import org.bukkit.inventory.ItemStack;
 
@@ -29,6 +30,9 @@ public class CityProject {
     public ItemStack getItem() {
         return new ItemBuilder(hdbAPI.getItemHead(headID))
                 .setName("§b§l" + name)
+                .setLore(new LoreBuilder()
+                    .description("§bID: §7" + getID())
+                    .build())
                 .build();
     }
 }
