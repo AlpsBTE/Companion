@@ -1,10 +1,10 @@
 package github.BTECompanion.core.menus;
 
 import github.BTECompanion.core.plotsystem.CityProject;
-import github.BTECompanion.core.plotsystem.DatabaseConnection;
 import github.BTECompanion.core.plotsystem.PlotSystem;
 import github.BTECompanion.utils.ItemBuilder;
 import github.BTECompanion.utils.LoreBuilder;
+import github.BTECompanion.utils.Utils;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -14,6 +14,7 @@ import org.ipvp.canvas.mask.BinaryMask;
 import org.ipvp.canvas.mask.Mask;
 import org.ipvp.canvas.type.ChestMenu;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -62,7 +63,6 @@ public class PlotSystemMenu extends PlotSystem {
                     .setName("§a§lCreate Plot")
                     .build());
         createPlotMenu.getSlot(48).setClickHandler((clickPlayer, clickInformation) -> {
-            clickPlayer.sendMessage(cityProjects.get(selectedCityID).getName() + " | " + cityProjects.get(selectedCityID).getID());
             CreatePlot(clickPlayer, cityProjects.get(selectedCityID).getID());
             clickPlayer.closeInventory();
         });
@@ -81,32 +81,35 @@ public class PlotSystemMenu extends PlotSystem {
     private List<CityProject> getCityProjects() throws SQLException {
         List<CityProject> listProjects = new ArrayList<>();
 
-        ResultSet rs = DatabaseConnection.createStatement().executeQuery("SELECT idcityProject,name,country FROM cityProjects");
+        try (Connection connection = Utils.getConnection()) {
+            ResultSet rs = connection.createStatement().executeQuery("SELECT idcityProject, name, country FROM cityProjects");
 
-        int counter = 0;
+            int counter = 0;
 
-        while (rs.next()) {
-            int cityID = rs.getInt("idcityProject");
-            String name = rs.getString("name");
+            while (rs.next()) {
+                int cityID = rs.getInt("idcityProject");
+                String name = rs.getString("name");
 
-            CityProject city = null;
+                CityProject city = null;
 
-            switch (rs.getString("country")){
-                case "AT":
-                    city = new CityProject(cityID, name, "4397");
-                    break;
-                case "CH":
-                    city = new CityProject(cityID, name, "32348");
-                    break;
-                case "LI":
-                    city = new CityProject(cityID, name, "26174");
-                    break;
+                switch (rs.getString("country")){
+                    case "AT":
+                        city = new CityProject(cityID, name, "4397");
+                        break;
+                    case "CH":
+                        city = new CityProject(cityID, name, "32348");
+                        break;
+                    case "LI":
+                        city = new CityProject(cityID, name, "26174");
+                        break;
 
+                }
+
+                createPlotMenu.getSlot(9 + counter).setItem(city.getItem());
+                listProjects.add(city);
+                counter++;
             }
-
-            createPlotMenu.getSlot(9 + counter).setItem(city.getItem());
-            listProjects.add(city);
-            counter++;
+            rs.close();
         }
 
         return listProjects;

@@ -11,8 +11,10 @@ import com.sk89q.worldedit.function.operation.Operations;
 import com.sk89q.worldedit.regions.Polygonal2DRegion;
 import com.sk89q.worldedit.regions.Region;
 import github.BTECompanion.BTECompanion;
+import github.BTECompanion.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
@@ -21,6 +23,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.logging.Level;
@@ -47,7 +50,7 @@ public class PlotSystem {
             plotRegion = WorldEdit.getInstance().getSessionManager().findByName(player.getDisplayName()).getSelection(
                          WorldEdit.getInstance().getSessionManager().findByName(player.getDisplayName()).getSelectionWorld());
         } catch (NullPointerException | IncompleteRegionException ex) {
-            player.sendMessage("§8§l>> §cCould not find WorldEdit selection!");
+            player.sendMessage("§7§l>> §cPlease select a WorldEdit selection!");
             return;
         }
 
@@ -60,25 +63,29 @@ public class PlotSystem {
                 polyRegion = (Polygonal2DRegion)plotRegion;
 
                 if(polyRegion.getLength() > 100 || polyRegion.getWidth() > 100 || polyRegion.getHeight() > 30) {
-                     player.sendMessage("§8§l>> §cPlease adjust your selection size!");
+                     player.sendMessage("§7§l>> §cPlease adjust your selection size!");
                      return;
                 }
 
                 // Set minimum selection height under player location
                 polyRegion.setMinimumY((int) player.getLocation().getY() - 5);
+
+                if(polyRegion.getMaximumY() <= player.getLocation().getY() + 1) {
+                    polyRegion.setMaximumY((int) player.getLocation().getY() + 1);
+                }
             } else {
-                 player.sendMessage("§8§l>> §cPlease use poly selection to create a new plot!");
+                 player.sendMessage("§7§l>> §cPlease use poly selection to create a new plot!");
                  return;
             }
         } catch (Exception ex) {
              Bukkit.getLogger().log(Level.SEVERE, "An error occurred while creating a new plot!", ex);
-             player.sendMessage("§8§l>> §cAn error occurred while creating plot!");
+             player.sendMessage("§7§l>> §cAn error occurred while creating plot!");
              return;
         }
 
         // Saving schematic
-        try {
-            ResultSet rs = DatabaseConnection.createStatement().executeQuery("SELECT (t1.idplot + 1) as firstID FROM plots t1 " +
+        try (Connection connection = Utils.getConnection()) {
+            ResultSet rs = connection.createStatement().executeQuery("SELECT (t1.idplot + 1) as firstID FROM plots t1 " +
                     "WHERE NOT EXISTS (SELECT t2.idplot FROM plots t2 WHERE t2.idplot = t1.idplot + 1)");
             if(rs.next()) {
                 plotID = rs.getInt(1);
@@ -104,24 +111,31 @@ public class PlotSystem {
             try(ClipboardWriter writer = ClipboardFormat.SCHEMATIC.getWriter(new FileOutputStream(schematic, false))) {
                 writer.write(cb, polyRegion.getWorld().getWorldData());
             }
+
+            rs.close();
         } catch (Exception ex) {
             Bukkit.getLogger().log(Level.SEVERE, "An error occurred while saving new plot to a schematic!", ex);
-            player.sendMessage("§8§l>> §cAn error occurred while creating plot!");
+            player.sendMessage("§7§l>> §cAn error occurred while creating plot!");
             return;
         }
 
         // Save to database
-        try {
-            PreparedStatement statement = DatabaseConnection.createPreparedStatement("INSERT INTO plots (idplot, idcity, mcCoordinates) VALUES (?, ?, ?)");
+        try (Connection connection = Utils.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO plots (idplot, idcity, mcCoordinates) VALUES (?, ?, ?)");
 
             statement.setInt(1, plotID);
             statement.setInt(2, cityID);
             statement.setString(3, mcCoordinates.getX() + "," + mcCoordinates.getY() + "," + mcCoordinates.getZ());
 
             statement.execute();
+
+            player.sendMessage("§7§l>> §aSuccessfully created new plot!§7 (City: " + cityID + " | ID: " + plotID + ")");
+            player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1);
+
+            statement.close();
         } catch (Exception ex) {
             Bukkit.getLogger().log(Level.SEVERE, "An error occurred while saving new plot to database!", ex);
-            player.sendMessage("§8§l>> §cAn error occurred while creating plot!");
+            player.sendMessage("§7§l>> §cAn error occurred while creating plot!");
 
             try {
                 Files.deleteIfExists(Paths.get(path));

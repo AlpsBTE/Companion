@@ -2,11 +2,8 @@ package github.BTECompanion;
 
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
-import com.sk89q.worldedit.WorldEdit;
-import com.sk89q.worldedit.bukkit.BukkitPlayer;
 import github.BTECompanion.commands.*;
 import github.BTECompanion.core.EventListener;
-import github.BTECompanion.core.plotsystem.DatabaseConnection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -28,9 +25,6 @@ public class BTECompanion extends JavaPlugin {
         plugin = this;
 
         reloadConfig();
-
-        // Connect to Database
-        DatabaseConnection.ConnectToDatabase();
 
         // Add listeners
         this.getServer().getPluginManager().registerEvents(new EventListener(), plugin);
