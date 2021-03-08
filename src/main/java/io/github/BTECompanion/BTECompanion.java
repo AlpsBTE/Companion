@@ -40,7 +40,8 @@ public class BTECompanion extends JavaPlugin {
         this.getCommand("createplot").setExecutor(new CMD_CreatePlot());
 
         if(getConfig().getBoolean("Companion.enable-custom-tpll")) {
-            this.getCommand("tpll").setExecutor(new CMD_Tpll());
+            // Removed tpll command because of Terra++
+            //this.getCommand("tpll").setExecutor(new CMD_Tpll());
         }
 
         if(getConfig().getBoolean("Companion.enable-custom-tp")) {

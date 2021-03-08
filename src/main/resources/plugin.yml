@@ -14,10 +14,6 @@ commands:
     description: reload companion config
     usage: /creload
     permission: companion.creload
-  tpll:
-    description: uses /cs tpll to teleport
-    usage: /tpll <long> <lat>
-    permission: companion.tpll
   map:
     description: teleport to the countries map
     usage: /map
