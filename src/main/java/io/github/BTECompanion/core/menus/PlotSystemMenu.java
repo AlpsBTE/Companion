@@ -102,7 +102,8 @@ public class PlotSystemMenu extends PlotSystem {
                     case "LI":
                         city = new CityProject(cityID, name, "26174");
                         break;
-
+                    case "IT":
+                        city = new CityProject(cityID, name, "21903");
                 }
 
                 createPlotMenu.getSlot(9 + counter).setItem(city.getItem());

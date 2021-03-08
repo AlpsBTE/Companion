@@ -19,7 +19,7 @@ public class EventListener extends SpecialBlocks implements Listener {
 
     @EventHandler
     public void onPlayerJoinEvent(PlayerJoinEvent event) {
-        Bukkit.broadcastMessage("§7[§6+§7] > " + event.getPlayer().getName());
+        event.setJoinMessage(null);
 
         FileConfiguration config = BTECompanion.getPlugin().getConfig();
 
@@ -38,15 +38,6 @@ public class EventListener extends SpecialBlocks implements Listener {
             event.getPlayer().sendMessage("§8§l>> §aWelcome to the countries map! Use the §6pressure plates §ato teleport to the specific location.");
             event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.ENTITY_FIREWORK_LAUNCH, 5.0f, 1.0f);
         }
-
-        event.setJoinMessage(null);
-    }
-
-    @EventHandler
-    public void onPlayerLeaveEvent(PlayerQuitEvent event) {
-        Bukkit.broadcastMessage("§7[§c-§7] > " + event.getPlayer().getName());
-
-        event.setQuitMessage(null);
     }
 
     @EventHandler

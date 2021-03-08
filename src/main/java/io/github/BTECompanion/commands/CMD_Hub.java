@@ -12,7 +12,7 @@ public class CMD_Hub implements CommandExecutor {
         if(sender instanceof Player) {
             if(sender.hasPermission("companion.hub")) {
                 sender.sendMessage("§8§l>> §aConnecting to server");
-                BTECompanion.getPlugin().connectPlayer((Player)sender, "HUB");
+                BTECompanion.getPlugin().connectPlayer((Player)sender, "ALPS-1");
             }
         }
         return true;

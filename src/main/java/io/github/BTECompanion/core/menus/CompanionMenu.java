@@ -45,7 +45,7 @@ public class CompanionMenu {
             player.closeInventory();
 
             player.sendMessage("§8§l>> §aConnecting to server");
-            BTECompanion.getPlugin().connectPlayer(player, "HUB");
+            BTECompanion.getPlugin().connectPlayer(player, "ALPS-1");
         });
 
 
