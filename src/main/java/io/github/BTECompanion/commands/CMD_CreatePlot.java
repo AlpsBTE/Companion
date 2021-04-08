@@ -12,7 +12,7 @@ public class CMD_CreatePlot implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String s, String[] args) {
 
-       if(sender instanceof Player) {
+       if(sender instanceof Player && sender.hasPermission("companion.plot")) {
            try {
                Player player = (Player)sender;
                new PlotSystemMenu(player).getCityProjectUI().open(player);
