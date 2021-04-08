@@ -15,7 +15,7 @@ public class CMD_CreatePlot implements CommandExecutor {
        if(sender instanceof Player) {
            try {
                Player player = (Player)sender;
-               new PlotSystemMenu(player).getUI().open(player);
+               new PlotSystemMenu(player).getCityProjectUI().open(player);
            } catch (SQLException ex) {
                ex.printStackTrace();
            }

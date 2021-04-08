@@ -42,7 +42,7 @@ public class PlotSystem {
         this.mcCoordinates = playerLocation;
     }
 
-    protected void CreatePlot(Player player, int cityID) {
+    protected void CreatePlot(Player player, int cityID, int difficultyID) {
         Region plotRegion;
 
         // Get WorldEdit selection of player
@@ -121,11 +121,12 @@ public class PlotSystem {
 
         // Save to database
         try (Connection connection = Utils.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO plots (idplot, idcity, mcCoordinates) VALUES (?, ?, ?)");
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO plots (idplot, idcity, mcCoordinates, iddifficulty) VALUES (?, ?, ?, ?)");
 
             statement.setInt(1, plotID);
             statement.setInt(2, cityID);
             statement.setString(3, mcCoordinates.getX() + "," + mcCoordinates.getY() + "," + mcCoordinates.getZ());
+            statement.setInt(4, difficultyID);
 
             statement.execute();
 
