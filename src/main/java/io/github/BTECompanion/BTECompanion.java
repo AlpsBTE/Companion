@@ -4,6 +4,7 @@ import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 import github.BTECompanion.commands.*;
 import github.BTECompanion.core.EventListener;
+import github.BTECompanion.core.plotsystem.PlotPlacement;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -31,7 +32,7 @@ public class BTECompanion extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new MenuFunctionListener(), plugin);
 
         // Add commands
-        this.getCommand("setspawnpoint").setExecutor(new CMD_SetSpawnPoint());
+        this.getCommand("setspawn").setExecutor(new CMD_SetSpawn());
         this.getCommand("creload").setExecutor(new CMD_ReloadConfig());
         this.getCommand("map").setExecutor(new CMD_Map());
         this.getCommand("speed").setExecutor(new CMD_Speed());
@@ -50,6 +51,8 @@ public class BTECompanion extends JavaPlugin {
         }
 
         this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
+
+        new PlotPlacement().start();
 
         getLogger().log(Level.INFO, "Successfully enabled BTE-Companion plugin.");
     }
