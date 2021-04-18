@@ -29,7 +29,7 @@ public class Utils {
                 FileConfiguration config = BTECompanion.getPlugin().getConfig();
 
                 return DriverManager.getConnection(
-                        "jdbc:mariadb://172.18.0.1:3306/alpsbte",
+                        config.getString("PlotSystem.database.url"),
                         config.getString("PlotSystem.database.username"),
                         config.getString("PlotSystem.database.password"));
             }

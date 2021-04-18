@@ -28,6 +28,7 @@ Companion:
     pitch: 0
 PlotSystem:
   database:
+    url: null
     username: null
     password: null
   path: null
