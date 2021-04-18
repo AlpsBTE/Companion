@@ -4,6 +4,7 @@ import com.sk89q.worldedit.*;
 import com.sk89q.worldedit.bukkit.BukkitUtil;
 import com.sk89q.worldedit.bukkit.BukkitWorld;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
+import com.sk89q.worldedit.bukkit.selections.Selection;
 import com.sk89q.worldedit.data.DataException;
 import com.sk89q.worldedit.extent.clipboard.BlockArrayClipboard;
 import com.sk89q.worldedit.extent.clipboard.Clipboard;
@@ -25,6 +26,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import java.io.*;
+import java.nio.channels.Selector;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Connection;
@@ -116,8 +118,16 @@ public class PlotSystem {
             try(ClipboardWriter writer = ClipboardFormat.SCHEMATIC.getWriter(new FileOutputStream(schematic, false))) {
                 writer.write(cb, polyRegion.getWorld().getWorldData());
             }
-
             rs.close();
+
+            // Clear player selection
+            try {
+                if(worldEdit.getSelection(player.getPlayer()) != null) {
+                    worldEdit.setSelection(player.getPlayer(), null);
+                }
+            } catch (Exception ex) {
+                Bukkit.getLogger().log(Level.WARNING, "An error occurred while trying to clear players selection!", ex);
+            }
         } catch (Exception ex) {
             Bukkit.getLogger().log(Level.SEVERE, "An error occurred while saving new plot to a schematic!", ex);
             player.sendMessage("§7§l>> §cAn error occurred while creating plot!");
