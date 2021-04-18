@@ -9,7 +9,7 @@ public class CMD_Tpp implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String s, String[] args) {
         if(sender instanceof Player) {
-            if(sender.hasPermission("companion.tpp")) {
+            if(sender.hasPermission("alpsbte.tpp")) {
                 Player player = (Player)sender;
                 try {
                     Player targetPlayer = player.getServer().getPlayer(args[0]);

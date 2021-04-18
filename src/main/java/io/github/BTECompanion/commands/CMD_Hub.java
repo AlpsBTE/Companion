@@ -10,7 +10,7 @@ public class CMD_Hub implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String s, String[] args) {
         if(sender instanceof Player) {
-            if(sender.hasPermission("companion.hub")) {
+            if(sender.hasPermission("alpsbte.hub")) {
                 sender.sendMessage("§8§l>> §aConnecting to server");
                 BTECompanion.getPlugin().connectPlayer((Player)sender, "ALPS-1");
             }

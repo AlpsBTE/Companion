@@ -9,7 +9,7 @@ public class CMD_Speed implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String s, String[] args) {
         if(sender instanceof Player) {
-            if(sender.hasPermission("companion.speed")) {
+            if(sender.hasPermission("alpsbte.speed")) {
                 Player player = (Player)sender;
                 if(args.length == 1) {
                     try {

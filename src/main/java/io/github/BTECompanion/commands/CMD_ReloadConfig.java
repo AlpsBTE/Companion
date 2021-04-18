@@ -10,7 +10,7 @@ public class CMD_ReloadConfig implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String s, String[] args) {
         if(sender instanceof Player) {
-            if(sender.hasPermission("companion.creload")) {
+            if(sender.hasPermission("alpsbte.admin")) {
                 BTECompanion.getPlugin().reloadConfig();
                 BTECompanion.getPlugin().saveConfig();
 

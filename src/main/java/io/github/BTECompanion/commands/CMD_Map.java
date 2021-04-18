@@ -13,7 +13,7 @@ public class CMD_Map implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String s, String[] args) {
         if(sender instanceof Player) {
-            if(sender.hasPermission("companion.map")) {
+            if(sender.hasPermission("alpsbte.map")) {
                 FileConfiguration config = BTECompanion.getPlugin().getConfig();
                 Player player = (Player)sender;
 
