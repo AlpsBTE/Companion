@@ -36,7 +36,7 @@ public class CompanionMenu {
         // Set HUB item
         companionMenu.getSlot(4).setItem(new ItemBuilder(Material.NETHER_STAR, 1)
                 .setName("§6§lHUB")
-                .setEnchantment(Enchantment.ARROW_DAMAGE)
+                .setEnchantment(true)
                 .setItemFlag(ItemFlag.HIDE_ENCHANTS)
                 .setLore(new LoreBuilder()
                         .server(Companion.getPlugin().checkServer(config.getString(ConfigPaths.HUB_IP), config.getInt(ConfigPaths.HUB_PORT)))
@@ -154,7 +154,7 @@ public class CompanionMenu {
     public static ItemStack getItem() {
         return new ItemBuilder(Material.NETHER_STAR, 1)
                 .setName("§b§lCompanion §7(Right Click)")
-                .setEnchantment(Enchantment.ARROW_DAMAGE)
+                .setEnchantment(true)
                 .setItemFlag(ItemFlag.HIDE_ENCHANTS)
                 .build();
     }
