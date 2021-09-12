@@ -27,3 +27,6 @@ commands:
   tpp:
     description: Teleport to a player
     usage: /tpp <Player>
+  ptime:
+    description: Set player time which is not relative to the server
+    usage: /ptime <day/night/reset/ticks>
