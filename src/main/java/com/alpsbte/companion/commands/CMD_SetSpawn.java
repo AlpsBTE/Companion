@@ -1,6 +1,6 @@
-package github.BTECompanion.commands;
+package com.alpsbte.companion.commands;
 
-import github.BTECompanion.BTECompanion;
+import com.alpsbte.companion.Companion;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -14,7 +14,7 @@ public class CMD_SetSpawn implements CommandExecutor {
         if(sender instanceof Player) {
             if(sender.hasPermission("alpsbte.admin")) {
                 if(args.length == 1) {
-                    FileConfiguration config = BTECompanion.getPlugin().getConfig();
+                    FileConfiguration config = Companion.getPlugin().getConfig();
                     Player player = (Player)sender;
 
                     if(args[0].equalsIgnoreCase("map")) {
@@ -34,7 +34,7 @@ public class CMD_SetSpawn implements CommandExecutor {
                         return true;
                     }
 
-                    BTECompanion.getPlugin().saveConfig();
+                    Companion.getPlugin().saveConfig();
                     sender.sendMessage("§8§l>> §aSuccessfully set new spawn point.");
                     player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 5.0f, 1.0f);
                 } else {
