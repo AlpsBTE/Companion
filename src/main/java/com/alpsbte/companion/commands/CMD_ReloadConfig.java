@@ -1,6 +1,7 @@
 package com.alpsbte.companion.commands;
 
 import com.alpsbte.companion.Companion;
+import com.alpsbte.companion.utils.Utils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -14,7 +15,11 @@ public class CMD_ReloadConfig implements CommandExecutor {
                 Companion.getPlugin().reloadConfig();
                 Companion.getPlugin().saveConfig();
 
-                sender.sendMessage("§8§l>> §aSuccessfully reloaded config.");
+                Player player = (Player)sender;
+                sender.sendMessage(Utils.getInfoMessageFormat("Successfully reloaded config."));
+                player.playSound(player.getLocation(), Utils.Done, 1.0f, 1.0f);
+            } else {
+                sender.sendMessage(Utils.getErrorMessageFormat("You don't have permission to execute this command!"));
             }
         }
         return true;

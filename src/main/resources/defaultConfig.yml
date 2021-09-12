@@ -1,33 +1,43 @@
-# BTE-Companion Configuration File
-#
-# command-only: If true, players can only use the command /companion. If false, players get a companion automatically in their inventory when they join the server.
-# enable-custom-tpll: Uses /cs tpll from BTETools (restart required)
-# enable-custom-tp: Use /tpp to teleport to a player (restart required)
-# IP: HUB server
-# port: HUB server
-# trees-spawn-point: Spawn point of the custom trees platform
-# map-spawn-point: Spawn point of the countries map
-#
-Companion:
-  command-only: false
-  enable-custom-tpll: true
-  enable-custom-tp: true
+# -----------------------------------------------------
+# |             Companion - by Alps BTE
+# -----------------------------------------------------
+# | [Github Repo] https://github.com/AlpsBTE/Companion
+# | [Contacts - Discord] R3tuxn#7169
+# -----------------------------------------------------
+
+# IP and Port to the HUB server
+hub:
   IP: localhost
-  port: 00000
-  trees-spawn-point:
+  port: 0000
+
+
+# -----------------------------------------------------
+# | Spawn points to specific locations on the TERRA sever
+# -----------------------------------------------------
+spawn-points:
+  # The map is used as spawn for the TERRA server
+  map:
     x: 0
     y: 0
     z: 0
     yaw: 0
     pitch: 0
-  map-spawn-point:
+  # The trees platform is used to copy trees and bushes for building
+  trees:
     x: 0
     y: 0
     z: 0
     yaw: 0
     pitch: 0
-PlotSystem:
-  database:
-    username: null
-    password: null
-  path: null
+
+
+# -----------------------------------------------------
+# | Formatting: Info/Error message outputs
+# -----------------------------------------------------
+message-prefix: §7§l>>
+info-colour: §a
+error-colour: §c
+
+
+# NOTE: Do not change
+config-version: 1.0

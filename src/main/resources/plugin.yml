@@ -1,44 +1,29 @@
-main: github.BTECompanion.BTECompanion
-version: 1.3
+main: com.alpsbte.companion.Companion
+version: 2.0
 api-version: 1.12.2
 name: AlpsBTE-Companion
 author: R3tuxn
-depend: [HeadDatabase]
+softdepend: [HeadDatabase]
 
 commands:
   setspawn:
     description: Set spawn point of the map or tree platform
     usage: /setspawn <map/trees>
-    permission: alpsbte.admin
   creload:
     description: Reload companion config
     usage: /creload
-    permission: alpsbte.admin
   map:
-    description: Teleport to the countries map
+    description: Teleport to the spawn map
     usage: /map
-    permission: alpsbte.map
   speed:
     description: Adjust your flying speed
     usage: /speed <1/2/3>
-    permission: alpsbte.speed
   hub:
     description: Connect to the HUB server
     usage: /hub
-    permission: alpsbte.hub
   companion:
     description: Open the companion menu
     usage: /companion
-    permission: alpsbte.companion
   tpp:
     description: Teleport to a player
     usage: /tpp <Player>
-    permission: alpsbte.tpp
-  createplot:
-    description: Create a new plot for the PlotSystem
-    usage: /createplot
-    permission: alpsbte.createplot
-  pasteplot:
-    description: Paste a plot
-    usage: /pasteplot <ID>
-    permission: alpsbte.createplot

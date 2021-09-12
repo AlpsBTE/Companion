@@ -1,5 +1,6 @@
 package com.alpsbte.companion.commands;
 
+import com.alpsbte.companion.utils.Utils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -14,10 +15,13 @@ public class CMD_Tpp implements CommandExecutor {
                 try {
                     Player targetPlayer = player.getServer().getPlayer(args[0]);
                     player.teleport(targetPlayer);
-                    player.sendMessage("§8§l>> §aTeleporting to player");
+                    player.playSound(player.getLocation(), Utils.TeleportSound, 1f, 1f);
+                    player.sendMessage(Utils.getInfoMessageFormat("Teleporting to player..."));
                 } catch (Exception ignore) {
-                    player.sendMessage("§8§l>> §cUsage: /tpp <Player>");
+                    player.sendMessage(Utils.getErrorMessageFormat("Usage: /tpp <Player>"));
                 }
+            } else {
+                sender.sendMessage(Utils.getErrorMessageFormat("You don't have permission to execute this command!"));
             }
         }
         return true;

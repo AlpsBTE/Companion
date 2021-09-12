@@ -1,8 +1,10 @@
 package com.alpsbte.companion.core.menus;
 
 import com.alpsbte.companion.Companion;
+import com.alpsbte.companion.core.config.ConfigPaths;
 import com.alpsbte.companion.utils.ItemBuilder;
 import com.alpsbte.companion.utils.LoreBuilder;
+import com.alpsbte.companion.utils.Utils;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -19,7 +21,7 @@ public class CompanionMenu {
 
     public Menu getUI() {
         Menu companionMenu = ChestMenu.builder(3).title("Companion Menu").redraw(true).build();
-        FileConfiguration config = Companion.getPlugin().getConfig();
+        FileConfiguration config = Companion.getPlugin().getConfigManager().getConfig();
 
         // Set glass border
         Mask mask = BinaryMask.builder(companionMenu)
@@ -37,14 +39,14 @@ public class CompanionMenu {
                 .setEnchantment(Enchantment.ARROW_DAMAGE)
                 .setItemFlag(ItemFlag.HIDE_ENCHANTS)
                 .setLore(new LoreBuilder()
-                        .server(Companion.getPlugin().checkServer(config.getString("Companion.IP"), config.getInt("Companion.port")))
+                        .server(Companion.getPlugin().checkServer(config.getString(ConfigPaths.HUB_IP), config.getInt(ConfigPaths.HUB_PORT)))
                         .build())
                 .build());
 
         companionMenu.getSlot(4).setClickHandler((player, clickInformation) -> {
             player.closeInventory();
 
-            player.sendMessage("§8§l>> §aConnecting to server");
+            player.sendMessage(Utils.getInfoMessageFormat("Connecting to server..."));
             Companion.getPlugin().connectPlayer(player, "ALPS-1");
         });
 
@@ -53,7 +55,7 @@ public class CompanionMenu {
         // [1] Set HeadDB item
         companionMenu.getSlot(9).setItem(new ItemBuilder(Material.SKULL_ITEM, 1, (byte) 3)
                 .setName("§b§lCUSTOM HEADS")
-                .setLore(new LoreBuilder().description("Open the head menu to get a variety of custom heads.").build())
+                .setLore(new LoreBuilder().description("Open the head menu to get a variety of custom heads for building.").build())
                 .build());
 
         companionMenu.getSlot(9).setClickHandler((player, clickInformation) -> {
@@ -66,20 +68,20 @@ public class CompanionMenu {
         // [2] Set teleporting item to the trees platform
         companionMenu.getSlot(11).setItem(new ItemBuilder(Material.LEAVES, 1)
                 .setName("§b§lCUSTOM TREES")
-                .setLore(new LoreBuilder().description("Teleport to the trees platform to get a variety of custom trees for building.").build())
+                .setLore(new LoreBuilder().description("Teleport to the trees platform to get a variety of custom trees and bushes for building.").build())
                 .build());
 
         companionMenu.getSlot(11).setClickHandler((player, clickInformation) -> {
             player.closeInventory();
 
             player.teleport(new Location(player.getWorld(),
-                    config.getDouble("Companion.trees-spawn-point.x"),
-                    config.getDouble("Companion.trees-spawn-point.y"),
-                    config.getDouble("Companion.trees-spawn-point.z"),
-                    (float) config.getDouble("Companion.trees-spawn-point.yaw"),
-                    (float) config.getDouble("Companion.trees-spawn-point.pitch")));
+                    config.getDouble(ConfigPaths.SPAWN_POINTS_TREES_X),
+                    config.getDouble(ConfigPaths.SPAWN_POINTS_TREES_Y),
+                    config.getDouble(ConfigPaths.SPAWN_POINTS_TREES_Z),
+                    (float) config.getDouble(ConfigPaths.SPAWN_POINTS_TREES_YAW),
+                    (float) config.getDouble(ConfigPaths.SPAWN_POINTS_TREES_PITCH)));
 
-            player.sendMessage("§8§l>> §aWelcome to the custom trees platform! Select a tree and §6//copy & //paste §ait to use it.");
+            player.sendMessage(Utils.getInfoMessageFormat("Select a tree or bush and copy it using §6//copy§a."));
             player.playSound(player.getLocation(), Sound.ENTITY_FIREWORK_LAUNCH, 5.0f, 1.0f);
         });
 
@@ -94,7 +96,7 @@ public class CompanionMenu {
         companionMenu.getSlot(13).setClickHandler((player, clickInformation) -> {
             player.closeInventory();
 
-            player.sendMessage("§8§l>> §6Coming Soon!");
+            player.sendMessage(Utils.getInfoMessageFormat("§6Coming Soon!"));
         });
 
 
@@ -102,12 +104,11 @@ public class CompanionMenu {
         // [4] Set banner maker menu item
         companionMenu.getSlot(15).setItem(new ItemBuilder(Material.BANNER, 1, (byte) 14)
                 .setName("§b§lBANNER MAKER")
-                .setLore(new LoreBuilder().description("Open the banner maker menu to create your own custom banners.").build())
+                .setLore(new LoreBuilder().description("Open the banner maker menu to create and manage your own custom banners.").build())
                 .build());
 
         companionMenu.getSlot(15).setClickHandler((player, clickInformation) -> {
             player.closeInventory();
-
             player.performCommand("bm");
         });
 
@@ -118,7 +119,6 @@ public class CompanionMenu {
 
         companionMenu.getSlot(17).setClickHandler((player, clickInformation) -> {
             player.closeInventory();
-
             new SpecialBlocksMenu().getUI().open(player);
         });
 
@@ -128,7 +128,7 @@ public class CompanionMenu {
         companionMenu.getSlot(22).setItem(new ItemBuilder(Material.MAP, 1)
                 .setName("§b§lMAP")
                 .setLore(new LoreBuilder()
-                        .description("Teleport to the countries map to visit already built areas.")
+                        .description("Teleport to the spawn map to visit already built areas.")
                         .build())
                 .build());
 
@@ -136,13 +136,13 @@ public class CompanionMenu {
             player.closeInventory();
 
             player.teleport(new Location(player.getWorld(),
-                    config.getDouble("Companion.map-spawn-point.x"),
-                    config.getDouble("Companion.map-spawn-point.y"),
-                    config.getDouble("Companion.map-spawn-point.z"),
-                    (float) config.getDouble("Companion.map-spawn-point.yaw"),
-                    (float) config.getDouble("Companion.map-spawn-point.pitch")));
+                    config.getDouble(ConfigPaths.SPAWN_POINTS_MAP_X),
+                    config.getDouble(ConfigPaths.SPAWN_POINTS_MAP_Y),
+                    config.getDouble(ConfigPaths.SPAWN_POINTS_MAP_Z),
+                    (float) config.getDouble(ConfigPaths.SPAWN_POINTS_MAP_YAW),
+                    (float) config.getDouble(ConfigPaths.SPAWN_POINTS_MAP_PITCH)));
 
-            player.sendMessage("§8§l>> §aWelcome to the countries map! Use the §6pressure plates §ato teleport to the specific location.");
+            player.sendMessage(Utils.getInfoMessageFormat("Use the §6pressure plates §ato teleport to the specific location."));
             player.playSound(player.getLocation(), Sound.ENTITY_FIREWORK_LAUNCH, 5.0f, 1.0f);
         });
 

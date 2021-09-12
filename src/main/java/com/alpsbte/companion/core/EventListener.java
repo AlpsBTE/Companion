@@ -1,7 +1,9 @@
 package com.alpsbte.companion.core;
 
 import com.alpsbte.companion.Companion;
+import com.alpsbte.companion.core.config.ConfigPaths;
 import com.alpsbte.companion.core.menus.CompanionMenu;
+import com.alpsbte.companion.utils.Utils;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -18,22 +20,19 @@ public class EventListener extends SpecialBlocks implements Listener {
     @EventHandler
     public void onPlayerJoinEvent(PlayerJoinEvent event) {
         event.setJoinMessage(null);
+        FileConfiguration config = Companion.getPlugin().getConfigManager().getConfig();
 
-        FileConfiguration config = Companion.getPlugin().getConfig();
-
-        if(!event.getPlayer().getInventory().contains(CompanionMenu.getItem()) && !config.getBoolean("Companion.command-only")) {
-            event.getPlayer().getInventory().setItem(8, CompanionMenu.getItem());
-        }
+        event.getPlayer().getInventory().setItem(8, CompanionMenu.getItem());
 
         if(!event.getPlayer().hasPlayedBefore()) {
             event.getPlayer().teleport(new Location(event.getPlayer().getWorld(),
-                    config.getDouble("Companion.map-spawn-point.x"),
-                    config.getDouble("Companion.map-spawn-point.y"),
-                    config.getDouble("Companion.map-spawn-point.z"),
-                    (float) config.getDouble("Companion.map-spawn-point.yaw"),
-                    (float) config.getDouble("Companion.map-spawn-point.pitch")));
+                    config.getDouble(ConfigPaths.SPAWN_POINTS_MAP_X),
+                    config.getDouble(ConfigPaths.SPAWN_POINTS_MAP_Y),
+                    config.getDouble(ConfigPaths.SPAWN_POINTS_MAP_Z),
+                    (float) config.getDouble(ConfigPaths.SPAWN_POINTS_MAP_YAW),
+                    (float) config.getDouble(ConfigPaths.SPAWN_POINTS_MAP_PITCH)));
 
-            event.getPlayer().sendMessage("§8§l>> §aWelcome to the countries map! Use the §6pressure plates §ato teleport to the specific location.");
+            event.getPlayer().sendMessage(Utils.getInfoMessageFormat("Use the §6pressure plates §ato teleport to the specific location."));
             event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.ENTITY_FIREWORK_LAUNCH, 5.0f, 1.0f);
         }
     }
