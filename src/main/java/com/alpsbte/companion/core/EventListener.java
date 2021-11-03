@@ -4,8 +4,14 @@ import com.alpsbte.companion.Companion;
 import com.alpsbte.companion.core.config.ConfigPaths;
 import com.alpsbte.companion.core.menus.CompanionMenu;
 import com.alpsbte.companion.utils.Utils;
+import com.sk89q.worldguard.bukkit.RegionContainer;
+import com.sk89q.worldguard.bukkit.RegionQuery;
+import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
+import com.sk89q.worldguard.protection.flags.DefaultFlag;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.block.BlockState;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,7 +19,9 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.material.TrapDoor;
 
 public class EventListener extends SpecialBlocks implements Listener {
 
@@ -47,6 +55,33 @@ public class EventListener extends SpecialBlocks implements Listener {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+
+        // Open/Close iron trap door when right-clicking
+        if (event.getAction().equals(Action.RIGHT_CLICK_AIR) || event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
+            if (event.getHand() != EquipmentSlot.OFF_HAND) {
+                if (!event.getPlayer().isSneaking()){
+                    if (event.getClickedBlock() != null && event.getItem() == null && event.getClickedBlock().getType() == Material.IRON_TRAPDOOR) {
+                        WorldGuardPlugin worldGuard = WorldGuardPlugin.inst();
+                        RegionContainer regionContainer = worldGuard.getRegionContainer();
+                        RegionQuery query = regionContainer.createQuery();
+
+                        if (query.testBuild(event.getPlayer().getLocation(), worldGuard.wrapPlayer(event.getPlayer()), DefaultFlag.INTERACT)) {
+                            BlockState state = event.getClickedBlock().getState();
+                            TrapDoor tp = (TrapDoor) state.getData();
+
+                            if (!tp.isOpen()) {
+                                tp.setOpen(true);
+                                event.getPlayer().playSound(event.getClickedBlock().getLocation(), "block.iron_trapdoor.open", 1f, 1f);
+                            } else {
+                                tp.setOpen(false);
+                                event.getPlayer().playSound(event.getClickedBlock().getLocation(), "block.iron_trapdoor.close", 1f, 1f);
+                            }
+                            state.update();
+                        }
+                    }
+                }
+            }
         }
     }
 
