@@ -71,12 +71,12 @@ public class SpecialBlocksMenu extends SpecialBlocks {
                         giveItemToPlayer(player, RedMushroom);
                     });
                     break;
-                // Mushroom Stem
+                // Seamless Mushroom Stem
                 case 3:
-                    slot.setItem(MushroomStem);
+                    slot.setItem(SeamlessMushroomStem);
 
                     slot.setClickHandler((player, clickInformation) -> {
-                        giveItemToPlayer(player, MushroomStem);
+                        giveItemToPlayer(player, SeamlessMushroomStem);
                     });
                     break;
                 // Brown Mushroom

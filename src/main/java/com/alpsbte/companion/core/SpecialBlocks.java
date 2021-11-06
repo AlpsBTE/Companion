@@ -52,12 +52,12 @@ public class SpecialBlocks {
             .setEnchantment(true)
             .build();
 
-    public static ItemStack MushroomStem = new ItemBuilder(Material.HUGE_MUSHROOM_2, 1)
-            .setName("§6§lMushroom Stem Block").setLore(new LoreBuilder()
+    public static ItemStack SeamlessMushroomStem = new ItemBuilder(Material.HUGE_MUSHROOM_2, 1)
+            .setName("§6§lSeamless Mushroom Stem Block").setLore(new LoreBuilder()
                     .emptyLine()
-                    .description("Use this tool to place a §fMushroom Stem§7 block.",
+                    .description("Use this tool to place a §fSeamless Mushroom Stem§7 block.",
                             "",
-                            "§7ID: §b99:10")
+                            "§7ID: §b99:15")
                     .emptyLine()
                     .build())
             .setEnchantment(true)

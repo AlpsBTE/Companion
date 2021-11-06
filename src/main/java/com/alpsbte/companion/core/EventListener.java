@@ -94,8 +94,8 @@ public class EventListener extends SpecialBlocks implements Listener {
                 event.getBlockPlaced().setTypeIdAndData(43, (byte) 9, true);
             } else if(item.isSimilar(SeamlessStone)) {
                 event.getBlockPlaced().setTypeIdAndData(43, (byte) 8, true);
-            } else if(item.isSimilar(MushroomStem)) {
-                event.getBlockPlaced().setTypeIdAndData(99, (byte) 10, true);
+            } else if(item.isSimilar(SeamlessMushroomStem)) {
+                event.getBlockPlaced().setTypeIdAndData(99, (byte) 15, true);
             } else if(item.isSimilar(LightBrownMushroom)) {
                 event.getBlockPlaced().setTypeIdAndData(99, (byte) 0, true);
             } else if(item.isSimilar(BarkOakLog)) {
