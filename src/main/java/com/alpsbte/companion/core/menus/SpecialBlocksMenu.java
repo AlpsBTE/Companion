@@ -55,8 +55,16 @@ public class SpecialBlocksMenu extends SpecialBlocks {
                         giveItemToPlayer(player, SeamlessSandstone);
                     });
                     break;
-                // Seamless Stone
+                // Seamless Red Sandstone
                 case 1:
+                    slot.setItem(SeamlessRedSandstone);
+
+                    slot.setClickHandler((player, clickInformation) -> {
+                        giveItemToPlayer(player, SeamlessRedSandstone);
+                    });
+                    break;
+                // Seamless Stone
+                case 2:
                     slot.setItem(SeamlessStone);
 
                     slot.setClickHandler((player, clickInformation) -> {
@@ -64,7 +72,7 @@ public class SpecialBlocksMenu extends SpecialBlocks {
                     });
                     break;
                 // Red Mushroom
-                case 2:
+                case 3:
                     slot.setItem(RedMushroom);
 
                     slot.setClickHandler((player, clickInformation) -> {
@@ -72,7 +80,7 @@ public class SpecialBlocksMenu extends SpecialBlocks {
                     });
                     break;
                 // Seamless Mushroom Stem
-                case 3:
+                case 4:
                     slot.setItem(SeamlessMushroomStem);
 
                     slot.setClickHandler((player, clickInformation) -> {
@@ -80,7 +88,7 @@ public class SpecialBlocksMenu extends SpecialBlocks {
                     });
                     break;
                 // Brown Mushroom
-                case 4:
+                case 5:
                     slot.setItem(BrownMushroom);
 
                     slot.setClickHandler((player, clickInformation) -> {
@@ -88,7 +96,7 @@ public class SpecialBlocksMenu extends SpecialBlocks {
                     });
                     break;
                 // Light Brown Mushroom
-                case 5:
+                case 6:
                     slot.setItem(LightBrownMushroom);
 
                     slot.setClickHandler((player, clickInformation) -> {
@@ -96,7 +104,7 @@ public class SpecialBlocksMenu extends SpecialBlocks {
                     });
                     break;
                 // Barrier
-                case 6:
+                case 7:
                     slot.setItem(Barrier);
 
                     slot.setClickHandler((player, clickInformation) -> {
