@@ -95,8 +95,7 @@ public class CompanionMenu {
 
         companionMenu.getSlot(13).setClickHandler((player, clickInformation) -> {
             player.closeInventory();
-
-            player.sendMessage(Utils.getInfoMessageFormat("§6Coming Soon!"));
+            new EffectsMenu().getUI().open(player);
         });
 
 

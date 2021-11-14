@@ -26,8 +26,6 @@ public class SpecialBlocksMenu extends SpecialBlocks {
                 .pattern("111101111").build(); // Third row
         mask.apply(specialBlocksMenu);
 
-
-
         // Set close button item
         specialBlocksMenu.getSlot(22).setItem(new ItemBuilder(Material.BARRIER, 1)
                 .setName("§6§lCLOSE")
@@ -38,8 +36,6 @@ public class SpecialBlocksMenu extends SpecialBlocks {
 
             new CompanionMenu().getUI().open(player);
         });
-
-
 
         // Set special blocks items
         for(int i = 0; i <= 14; i++) {
