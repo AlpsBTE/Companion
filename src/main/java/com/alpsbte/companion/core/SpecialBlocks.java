@@ -79,7 +79,7 @@ public class SpecialBlocks {
                     .emptyLine()
                     .description("Use this tool to place a §fLight Brown Mushroom§7 block.",
                             "",
-                            "§7ID: §b99:0")
+                            "§7ID: §b99:11")
                     .emptyLine()
                     .build())
             .setEnchantment(true)
