@@ -81,7 +81,7 @@ public class EffectsMenu {
                             .build());
 
                     slot.setClickHandler((player, clickInformation) -> {
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION,Integer.MAX_VALUE,-1),true);
+                        player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, Integer.MAX_VALUE,-1),false);
                         player.sendMessage(Utils.getInfoMessageFormat("Successfully added Night Vision effect"));
                     });
                     break;
