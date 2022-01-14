@@ -87,6 +87,7 @@ public class Companion extends JavaPlugin {
             this.getCommand("companion").setExecutor(new CMD_Companion());
             this.getCommand("tpp").setExecutor(new CMD_Tpp());
             this.getCommand("ptime").setExecutor(new CMD_SetTime());
+            this.getCommand("pweather").setExecutor(new CMD_SetTime());
             Bukkit.getConsoleSender().sendMessage(successPrefix + "Successfully registered commands.");
         } catch (Exception ex) {
             Bukkit.getConsoleSender().sendMessage(errorPrefix + "Could not register commands.");
