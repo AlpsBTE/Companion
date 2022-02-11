@@ -107,6 +107,14 @@ public class SpecialBlocksMenu extends SpecialBlocks {
                         giveItemToPlayer(player, Barrier);
                     });
                     break;
+                // Structure Void
+                case 8:
+                    slot.setItem(StructureVoid);
+
+                    slot.setClickHandler((player, clickInformation) -> {
+                        giveItemToPlayer(player, StructureVoid);
+                    });
+                    break;
 
                 // Second Row
                 // Bark Oak Log

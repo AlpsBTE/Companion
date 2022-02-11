@@ -3,8 +3,6 @@ package com.alpsbte.companion.core;
 import com.alpsbte.companion.utils.ItemBuilder;
 import com.alpsbte.companion.utils.LoreBuilder;
 import org.bukkit.Material;
-import org.bukkit.enchantments.Enchantment;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 
 public class SpecialBlocks {
@@ -91,6 +89,17 @@ public class SpecialBlocks {
                     .description("Use this tool to place an §fInvisible§7 block.",
                             "",
                             "§7ID: §b166")
+                    .emptyLine()
+                    .build())
+            .setEnchantment(true)
+            .build();
+
+    public static ItemStack StructureVoid = new ItemBuilder(Material.STRUCTURE_VOID, 1)
+            .setName("§6§lStructure Void").setLore(new LoreBuilder()
+                    .emptyLine()
+                    .description("Use this tool to place an §fInvisible§7 block.",
+                            "",
+                            "§7ID: §b217")
                     .emptyLine()
                     .build())
             .setEnchantment(true)
