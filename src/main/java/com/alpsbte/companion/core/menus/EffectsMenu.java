@@ -19,7 +19,7 @@ public class EffectsMenu {
 
         // Set bottom glass border
         Mask mask = BinaryMask.builder(playerEffectsMenu)
-                .item(new ItemBuilder(Material.STAINED_GLASS_PANE, 1, (byte)7).setName(" ").build())
+                .item(new ItemBuilder(Material.GRAY_STAINED_GLASS_PANE, 1).setName(" ").build())
                 .pattern("111111111") // First row
                 .pattern("000000000") // Second row
                 .pattern("111101111").build(); // Third row
@@ -75,7 +75,7 @@ public class EffectsMenu {
                     break;
                 // Apply Night Vision
                 case 15:
-                    slot.setItem(new ItemBuilder(Material.EYE_OF_ENDER,1)
+                    slot.setItem(new ItemBuilder(Material.ENDER_EYE,1)
                             .setName("§6§lApply Night Vision")
                             .setLore(new LoreBuilder().description("Add a permanent Night Vision effect").build())
                             .build());

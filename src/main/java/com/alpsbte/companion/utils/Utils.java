@@ -12,11 +12,11 @@ public class Utils {
 
     // Get custom head
     public static ItemStack getItemHead(CustomHead head) {
-        return head != null ? head.getAsItemStack() : new ItemBuilder(Material.SKULL_ITEM, 1, (byte) 3).build();
+        return head != null ? head.getAsItemStack() : new ItemBuilder(Material.PLAYER_HEAD, 1, (byte) 3).build();
     }
 
     // Sounds
-    public static Sound TeleportSound = Sound.ENTITY_ENDERMEN_TELEPORT;
+    public static Sound TeleportSound = Sound.ENTITY_ENDERMAN_TELEPORT;
     public static Sound ErrorSound = Sound.ENTITY_ITEM_BREAK;
     public static Sound Done = Sound.ENTITY_EXPERIENCE_ORB_PICKUP;
 
@@ -46,7 +46,7 @@ public class Utils {
 
         public CustomHead(String headID) {
             this.headItem = headDatabaseAPI != null && headID != null && tryParseInt(headID) != null
-                    ? headDatabaseAPI.getItemHead(headID) : new ItemBuilder(Material.SKULL_ITEM, 1, (byte) 3).build();
+                    ? headDatabaseAPI.getItemHead(headID) : new ItemBuilder(Material.PLAYER_HEAD, 1, (byte) 3).build();
         }
 
         public ItemStack getAsItemStack() {

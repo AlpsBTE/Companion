@@ -9,7 +9,6 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.ipvp.canvas.Menu;
@@ -25,7 +24,7 @@ public class CompanionMenu {
 
         // Set glass border
         Mask mask = BinaryMask.builder(companionMenu)
-                .item(new ItemBuilder(Material.STAINED_GLASS_PANE, 1, (byte)7).setName(" ").build())
+                .item(new ItemBuilder(Material.GRAY_STAINED_GLASS_PANE, 1).setName(" ").build())
                 .pattern("111101111") // First row
                 .pattern("000000000") // Second row
                 .pattern("111101111").build(); // Third row
@@ -53,12 +52,12 @@ public class CompanionMenu {
 
 
         // [1] Set HeadDB item
-        companionMenu.getSlot(9).setItem(new ItemBuilder(Material.SKULL_ITEM, 1, (byte) 3)
+        companionMenu.getSlot(10).setItem(new ItemBuilder(Material.PLAYER_HEAD, 1, (byte) 3)
                 .setName("§b§lCUSTOM HEADS")
                 .setLore(new LoreBuilder().description("Open the head menu to get a variety of custom heads for building.").build())
                 .build());
 
-        companionMenu.getSlot(9).setClickHandler((player, clickInformation) -> {
+        companionMenu.getSlot(10).setClickHandler((player, clickInformation) -> {
             player.closeInventory();
             player.performCommand("headdb");
         });
@@ -66,7 +65,7 @@ public class CompanionMenu {
 
 
         // [2] Set teleporting item to the trees platform
-        companionMenu.getSlot(11).setItem(new ItemBuilder(Material.LEAVES, 1)
+/*        companionMenu.getSlot(11).setItem(new ItemBuilder(Material.OAK_LEAVES, 1)
                 .setName("§b§lCUSTOM TREES")
                 .setLore(new LoreBuilder().description("Teleport to the trees platform to get a variety of custom trees and bushes for building.").build())
                 .build());
@@ -83,17 +82,17 @@ public class CompanionMenu {
 
             player.sendMessage(Utils.getInfoMessageFormat("Select a tree or bush and copy it using §6//copy§a."));
             player.playSound(player.getLocation(), Sound.ENTITY_FIREWORK_LAUNCH, 5.0f, 1.0f);
-        });
+        });*/
 
 
 
         // [3] Set player effects item
-        companionMenu.getSlot(13).setItem(new ItemBuilder(Material.SPECTRAL_ARROW, 1)
+        companionMenu.getSlot(12).setItem(new ItemBuilder(Material.SPECTRAL_ARROW, 1)
                 .setName("§b§lPLAYER EFFECTS")
                 .setLore(new LoreBuilder().description("Open the player effects menu to adjust your speed and night vision.").build())
                 .build());
 
-        companionMenu.getSlot(13).setClickHandler((player, clickInformation) -> {
+        companionMenu.getSlot(12).setClickHandler((player, clickInformation) -> {
             player.closeInventory();
             new EffectsMenu().getUI().open(player);
         });
@@ -101,12 +100,12 @@ public class CompanionMenu {
 
 
         // [4] Set banner maker menu item
-        companionMenu.getSlot(15).setItem(new ItemBuilder(Material.BANNER, 1, (byte) 14)
+        companionMenu.getSlot(14).setItem(new ItemBuilder(Material.ORANGE_BANNER, 1)
                 .setName("§b§lBANNER MAKER")
                 .setLore(new LoreBuilder().description("Open the banner maker menu to create and manage your own custom banners.").build())
                 .build());
 
-        companionMenu.getSlot(15).setClickHandler((player, clickInformation) -> {
+        companionMenu.getSlot(14).setClickHandler((player, clickInformation) -> {
             player.closeInventory();
             player.performCommand("bm");
         });
@@ -114,9 +113,9 @@ public class CompanionMenu {
 
 
         // [5] Set special blocks item
-        companionMenu.getSlot(17).setItem(SpecialBlocksMenu.getItem());
+        companionMenu.getSlot(16).setItem(SpecialBlocksMenu.getItem());
 
-        companionMenu.getSlot(17).setClickHandler((player, clickInformation) -> {
+        companionMenu.getSlot(16).setClickHandler((player, clickInformation) -> {
             player.closeInventory();
             new SpecialBlocksMenu().getUI().open(player);
         });
@@ -127,7 +126,7 @@ public class CompanionMenu {
         companionMenu.getSlot(22).setItem(new ItemBuilder(Material.MAP, 1)
                 .setName("§b§lMAP")
                 .setLore(new LoreBuilder()
-                        .description("Teleport to the spawn map to visit already built areas.")
+                        .description("Teleport to the spawn.")
                         .build())
                 .build());
 
@@ -142,7 +141,7 @@ public class CompanionMenu {
                     (float) config.getDouble(ConfigPaths.SPAWN_POINTS_MAP_PITCH)));
 
             player.sendMessage(Utils.getInfoMessageFormat("Use the §6pressure plates §ato teleport to the specific location."));
-            player.playSound(player.getLocation(), Sound.ENTITY_FIREWORK_LAUNCH, 5.0f, 1.0f);
+            player.playSound(player.getLocation(), Sound.ENTITY_FIREWORK_ROCKET_LAUNCH, 5.0f, 1.0f);
         });
 
 

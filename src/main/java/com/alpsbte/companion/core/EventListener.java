@@ -3,15 +3,17 @@ package com.alpsbte.companion.core;
 import com.alpsbte.companion.Companion;
 import com.alpsbte.companion.core.config.ConfigPaths;
 import com.alpsbte.companion.core.menus.CompanionMenu;
-import com.alpsbte.companion.utils.Utils;
-import com.sk89q.worldguard.bukkit.RegionContainer;
-import com.sk89q.worldguard.bukkit.RegionQuery;
+import com.sk89q.worldedit.bukkit.BukkitAdapter;
+import com.sk89q.worldguard.WorldGuard;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
-import com.sk89q.worldguard.protection.flags.DefaultFlag;
+import com.sk89q.worldguard.protection.flags.Flags;
+import com.sk89q.worldguard.protection.regions.RegionQuery;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.BlockState;
+import org.bukkit.block.data.BlockData;
+import org.bukkit.block.data.Openable;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -40,8 +42,7 @@ public class EventListener extends SpecialBlocks implements Listener {
                     (float) config.getDouble(ConfigPaths.SPAWN_POINTS_MAP_YAW),
                     (float) config.getDouble(ConfigPaths.SPAWN_POINTS_MAP_PITCH)));
 
-            event.getPlayer().sendMessage(Utils.getInfoMessageFormat("Use the §6pressure plates §ato teleport to the specific location."));
-            event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.ENTITY_FIREWORK_LAUNCH, 5.0f, 1.0f);
+            event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.ENTITY_FIREWORK_ROCKET_LAUNCH, 5.0f, 1.0f);
         }
     }
 
@@ -62,22 +63,25 @@ public class EventListener extends SpecialBlocks implements Listener {
             if (event.getHand() != EquipmentSlot.OFF_HAND) {
                 if (!event.getPlayer().isSneaking()){
                     if (event.getClickedBlock() != null && event.getItem() == null && event.getClickedBlock().getType() == Material.IRON_TRAPDOOR) {
-                        WorldGuardPlugin worldGuard = WorldGuardPlugin.inst();
-                        RegionContainer regionContainer = worldGuard.getRegionContainer();
-                        RegionQuery query = regionContainer.createQuery();
+                        RegionQuery query = WorldGuard.getInstance().getPlatform().getRegionContainer().createQuery();
+                        com.sk89q.worldedit.util.Location loc = BukkitAdapter.adapt(event.getPlayer().getLocation());
+                        com.sk89q.worldedit.world.World world = BukkitAdapter.adapt(event.getPlayer().getWorld());
+                        if (!WorldGuard.getInstance().getPlatform().getSessionManager().hasBypass(WorldGuardPlugin.inst().wrapPlayer(event.getPlayer()), world)) {
+                            if (query.testState(loc, WorldGuardPlugin.inst().wrapPlayer(event.getPlayer()), Flags.INTERACT)) {
+                                BlockData data = event.getClickedBlock().getBlockData();
 
-                        if (query.testBuild(event.getPlayer().getLocation(), worldGuard.wrapPlayer(event.getPlayer()), DefaultFlag.INTERACT)) {
-                            BlockState state = event.getClickedBlock().getState();
-                            TrapDoor tp = (TrapDoor) state.getData();
+                                if (data instanceof Openable) {
+                                    Openable door = (Openable) data;
 
-                            if (!tp.isOpen()) {
-                                tp.setOpen(true);
-                                event.getPlayer().playSound(event.getClickedBlock().getLocation(), "block.iron_trapdoor.open", 1f, 1f);
-                            } else {
-                                tp.setOpen(false);
-                                event.getPlayer().playSound(event.getClickedBlock().getLocation(), "block.iron_trapdoor.close", 1f, 1f);
+                                    if (!door.isOpen()) {
+                                        door.setOpen(true);
+                                        event.getPlayer().playSound(event.getClickedBlock().getLocation(), "block.iron_trapdoor.open", 1f, 1f);
+                                    } else {
+                                        door.setOpen(false);
+                                        event.getPlayer().playSound(event.getClickedBlock().getLocation(), "block.iron_trapdoor.close", 1f, 1f);
+                                    }
+                                }
                             }
-                            state.update();
                         }
                     }
                 }
@@ -90,28 +94,10 @@ public class EventListener extends SpecialBlocks implements Listener {
         if(event.canBuild()) {
             ItemStack item = event.getItemInHand();
 
-            if(item.isSimilar(SeamlessSandstone)) {
-                event.getBlockPlaced().setTypeIdAndData(43, (byte) 9, true);
-            } else if(item.isSimilar(SeamlessRedSandstone)) {
-                event.getBlockPlaced().setTypeIdAndData(181, (byte) 12, true);
-            } else if(item.isSimilar(SeamlessStone)) {
-                event.getBlockPlaced().setTypeIdAndData(43, (byte) 8, true);
-            } else if(item.isSimilar(SeamlessMushroomStem)) {
-                event.getBlockPlaced().setTypeIdAndData(99, (byte) 15, true);
-            } else if(item.isSimilar(LightBrownMushroom)) {
-                event.getBlockPlaced().setTypeIdAndData(99, (byte) 0, true);
-            } else if(item.isSimilar(BarkOakLog)) {
-                event.getBlockPlaced().setTypeIdAndData(17, (byte) 12, true);
-            } else if(item.isSimilar(BarkSpruceLog)) {
-                event.getBlockPlaced().setTypeIdAndData(17, (byte) 13, true);
-            } else if(item.isSimilar(BarkBirchLog)) {
-                event.getBlockPlaced().setTypeIdAndData(17, (byte) 14, true);
-            } else if(item.isSimilar(BarkJungleLog)) {
-                event.getBlockPlaced().setTypeIdAndData(17, (byte) 15, true);
-            } else if(item.isSimilar(BarkAcaciaLog)) {
-                event.getBlockPlaced().setTypeIdAndData(162, (byte) 12, true);
-            } else if(item.isSimilar(BarkDarkOakLog)) {
-                event.getBlockPlaced().setTypeIdAndData(162, (byte) 13, true);
+            if(item.isSimilar(Barrier)) {
+                event.getBlockPlaced().setType(Material.BARRIER, true);
+            } else if(item.isSimilar(StructureVoid)) {
+                event.getBlockPlaced().setType(Material.STRUCTURE_VOID, true);
             }
         }
     }

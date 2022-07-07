@@ -27,7 +27,7 @@ public class CMD_Map implements CommandExecutor {
                         (float) config.getDouble(ConfigPaths.SPAWN_POINTS_MAP_PITCH)));
 
                 player.sendMessage(Utils.getInfoMessageFormat("Use the §6pressure plates §ato teleport to the specific location."));
-                player.playSound(player.getLocation(), Sound.ENTITY_FIREWORK_LAUNCH, 5.0f, 1.0f);
+                player.playSound(player.getLocation(), Sound.ENTITY_FIREWORK_ROCKET_LAUNCH, 5.0f, 1.0f);
             } else {
                 sender.sendMessage(Utils.getErrorMessageFormat("You don't have permission to execute this command!"));
             }

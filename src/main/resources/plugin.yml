@@ -1,6 +1,6 @@
 main: com.alpsbte.companion.Companion
 version: 2.0
-api-version: 1.12.2
+api-version: 1.18
 name: AlpsBTE-Companion
 author: R3tuxn
 softdepend: [HeadDatabase]

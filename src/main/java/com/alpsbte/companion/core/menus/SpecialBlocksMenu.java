@@ -20,7 +20,7 @@ public class SpecialBlocksMenu extends SpecialBlocks {
 
         // Set bottom glass border
         Mask mask = BinaryMask.builder(specialBlocksMenu)
-                .item(new ItemBuilder(Material.STAINED_GLASS_PANE, 1, (byte)7).setName(" ").build())
+                .item(new ItemBuilder(Material.GRAY_STAINED_GLASS_PANE, 1).setName(" ").build())
                 .pattern("000000000") // First row
                 .pattern("000000000") // Second row
                 .pattern("111101111").build(); // Third row
@@ -43,64 +43,15 @@ public class SpecialBlocksMenu extends SpecialBlocks {
 
             switch (i) {
                 // First Row
-                // Seamless Sandstone
                 case 0:
-                    slot.setItem(SeamlessSandstone);
+                    slot.setItem(DebugStick);
 
                     slot.setClickHandler((player, clickInformation) -> {
-                        giveItemToPlayer(player, SeamlessSandstone);
-                    });
-                    break;
-                // Seamless Red Sandstone
-                case 1:
-                    slot.setItem(SeamlessRedSandstone);
-
-                    slot.setClickHandler((player, clickInformation) -> {
-                        giveItemToPlayer(player, SeamlessRedSandstone);
-                    });
-                    break;
-                // Seamless Stone
-                case 2:
-                    slot.setItem(SeamlessStone);
-
-                    slot.setClickHandler((player, clickInformation) -> {
-                        giveItemToPlayer(player, SeamlessStone);
-                    });
-                    break;
-                // Red Mushroom
-                case 3:
-                    slot.setItem(RedMushroom);
-
-                    slot.setClickHandler((player, clickInformation) -> {
-                        giveItemToPlayer(player, RedMushroom);
-                    });
-                    break;
-                // Seamless Mushroom Stem
-                case 4:
-                    slot.setItem(SeamlessMushroomStem);
-
-                    slot.setClickHandler((player, clickInformation) -> {
-                        giveItemToPlayer(player, SeamlessMushroomStem);
-                    });
-                    break;
-                // Brown Mushroom
-                case 5:
-                    slot.setItem(BrownMushroom);
-
-                    slot.setClickHandler((player, clickInformation) -> {
-                        giveItemToPlayer(player, BrownMushroom);
-                    });
-                    break;
-                // Light Brown Mushroom
-                case 6:
-                    slot.setItem(LightBrownMushroom);
-
-                    slot.setClickHandler((player, clickInformation) -> {
-                        giveItemToPlayer(player, LightBrownMushroom);
+                        player.performCommand("dbs");
                     });
                     break;
                 // Barrier
-                case 7:
+                case 1:
                     slot.setItem(Barrier);
 
                     slot.setClickHandler((player, clickInformation) -> {
@@ -108,61 +59,11 @@ public class SpecialBlocksMenu extends SpecialBlocks {
                     });
                     break;
                 // Structure Void
-                case 8:
+                case 2:
                     slot.setItem(StructureVoid);
 
                     slot.setClickHandler((player, clickInformation) -> {
                         giveItemToPlayer(player, StructureVoid);
-                    });
-                    break;
-
-                // Second Row
-                // Bark Oak Log
-                case 9:
-                    slot.setItem(BarkOakLog);
-
-                    slot.setClickHandler((player, clickInformation) -> {
-                        giveItemToPlayer(player, BarkOakLog);
-                    });
-                    break;
-                // Bark Spruce Log
-                case 10:
-                    slot.setItem(BarkSpruceLog);
-
-                    slot.setClickHandler((player, clickInformation) -> {
-                        giveItemToPlayer(player, BarkSpruceLog);
-                    });
-                    break;
-                // Bark Birch Log
-                case 11:
-                    slot.setItem(BarkBirchLog);
-
-                    slot.setClickHandler((player, clickInformation) -> {
-                        giveItemToPlayer(player, BarkBirchLog);
-                    });
-                    break;
-                // Bark Jungle Log
-                case 12:
-                    slot.setItem(BarkJungleLog);
-
-                    slot.setClickHandler((player, clickInformation) -> {
-                        giveItemToPlayer(player, BarkJungleLog);
-                    });
-                    break;
-                // Bark Acacia Log
-                case 13:
-                    slot.setItem(BarkAcaciaLog);
-
-                    slot.setClickHandler((player, clickInformation) -> {
-                        giveItemToPlayer(player, BarkAcaciaLog);
-                    });
-                    break;
-                // Bark Dark Oak Log
-                case 14:
-                    slot.setItem(BarkDarkOakLog);
-
-                    slot.setClickHandler((player, clickInformation) -> {
-                        giveItemToPlayer(player, BarkDarkOakLog);
                     });
                     break;
             }
@@ -180,8 +81,8 @@ public class SpecialBlocksMenu extends SpecialBlocks {
 
     public static ItemStack getItem() {
         return new ItemBuilder(Material.GOLD_BLOCK ,1)
-                .setName("§b§lSPECIAL BLOCKS")
-                .setLore(new LoreBuilder().description("Open the special blocks menu to get a variety of inaccessible blocks.").build())
+                .setName("§b§lSPECIAL BLOCKS AND ITEMS")
+                .setLore(new LoreBuilder().description("Open the special blocks menu to get a variety of inaccessible blocks and items.").build())
                 .build();
     }
 }
