@@ -35,4 +35,13 @@ public class SpecialBlocks {
                     .build())
             .setEnchantment(true)
             .build();
+
+    public static ItemStack BlockUpdateTool = new ItemBuilder(Material.STICK, 1)
+            .setName("§c§lBlock Update Tool").setLore(new LoreBuilder()
+                    .emptyLine()
+                    .description("Use this tool to update the state of a existing block.")
+                    .emptyLine()
+                    .build())
+            .setEnchantment(true)
+            .build();
 }

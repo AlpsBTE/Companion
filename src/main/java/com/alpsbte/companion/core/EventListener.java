@@ -3,14 +3,22 @@ package com.alpsbte.companion.core;
 import com.alpsbte.companion.Companion;
 import com.alpsbte.companion.core.config.ConfigPaths;
 import com.alpsbte.companion.core.menus.CompanionMenu;
+import com.sk89q.worldedit.EditSession;
+import com.sk89q.worldedit.EditSessionBuilder;
+import com.sk89q.worldedit.WorldEdit;
 import com.sk89q.worldedit.bukkit.BukkitAdapter;
+import com.sk89q.worldedit.bukkit.BukkitWorld;
+import com.sk89q.worldedit.math.BlockVector3;
+import com.sk89q.worldedit.world.block.BaseBlock;
 import com.sk89q.worldguard.WorldGuard;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.sk89q.worldguard.protection.flags.Flags;
 import com.sk89q.worldguard.protection.regions.RegionQuery;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Openable;
@@ -24,6 +32,8 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.TrapDoor;
+
+import java.util.logging.Level;
 
 public class EventListener extends SpecialBlocks implements Listener {
 
@@ -56,6 +66,15 @@ public class EventListener extends SpecialBlocks implements Listener {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+
+        if (event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
+            if (event.getItem() != null && event.getItem().isSimilar(SpecialBlocks.BlockUpdateTool) && event.getClickedBlock() != null) {
+                Material clickedBlockMaterial = event.getClickedBlock().getType();
+                event.getClickedBlock().setType(Material.GRAY_STAINED_GLASS_PANE);
+                event.getClickedBlock().setType(clickedBlockMaterial);
+                event.getClickedBlock().getState().update(true);
+            }
         }
 
         // Open/Close iron trap door when right-clicking

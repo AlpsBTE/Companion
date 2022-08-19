@@ -66,6 +66,14 @@ public class SpecialBlocksMenu extends SpecialBlocks {
                         giveItemToPlayer(player, StructureVoid);
                     });
                     break;
+                // Block Update Tool
+                case 3:
+                    slot.setItem(BlockUpdateTool);
+
+                    slot.setClickHandler((player, clickInformation) -> {
+                        giveItemToPlayer(player, BlockUpdateTool);
+                    });
+                    break;
             }
         }
 
