@@ -113,7 +113,7 @@ public class EventListener extends SpecialBlocks implements Listener {
 
     @EventHandler
     public void onPlayerMoveEvent(PlayerMoveEvent event) {
-        Bukkit.getScheduler().runTaskAsynchronously(Companion.getPlugin(), (() -> event.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§c§lHeight: §f§l" + (event.getPlayer().getLocation().getBlockY() + 157) + "m"))));
+        Bukkit.getScheduler().runTaskAsynchronously(Companion.getPlugin(), (() -> event.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§c§lHeight: §f§l" + (event.getPlayer().getLocation().getBlockY() + 152) + "m"))));
     }
 
     @EventHandler
